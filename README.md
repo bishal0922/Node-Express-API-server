@@ -10,6 +10,7 @@
 
 
 > npm start to run the server </br>
+then the app should be running on http://localhost:5000 </br>
 
 
 
