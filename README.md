@@ -9,3 +9,7 @@
 
 
 
+> npm start to run the server </br>
+
+
+
