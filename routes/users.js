@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 //we initialize our router
 const router = express.Router();
 
-const users = [
+let users = [
     // {
     // name: "bishal0922",
     // last: "what is none",
@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
     const userWithID = {...user, id: userID};
 
     users.push(userWithID);
-    res.send(`The user ${user.name} was added to the database`)
+    res.send(`The user ${user.firstName} was added to the database`)
 });
 
 //if its "/:id" then you're expecting anyting after the users path so the id doesn't really matter
@@ -54,13 +54,38 @@ router.get('/:id', (req,res)=>{
 })
 
 router.delete('/:id', (req, res) => {
-    const{id} = req.params;
+    const{id, name} = req.params;
 
     //filter works such that it returns a new array with all the elements that pass the test (true)
     //if we are to delete a user we want to iterate through all the current users and make sure that the user we want to delete fails the filter test 
     //we can generate a False as (!True) by doing user.id !== is
     //if our id was 3 and we iterate over a ex users array being [2,6,1,4,3,7] then we would get [2,6,1,4,7] bc when we iterate over 3 it fails the test as user.id(3) !== 3(we receive from req.params)
     users = users.filter((user) => user.id !== id);
+
+    res.send(`User with the id ${id} was deleted from the database`);
+
+});
+
+router.patch('/:id', (req, res) => {
+    const {id} = req.params //params from the url
+    const {firstName, lastName, age} = req.body;
+
+    //we want to find the user we want to update so we iterate a return a match
+    const userToBeUpdated = users.find((user) => user.id === id);
+
+    if (firstName){
+        userToBeUpdated.firstName = firstName;
+    }
+    if (lastName){
+        userToBeUpdated.lastName = lastName;
+    }
+    if (age){
+        userToBeUpdated.age = age;
+    }
+
+    res.send(`User with the id ${id} and name ${userToBeUpdated.firstName} has been updated`)
+
+    
 });
 
 export default router;
