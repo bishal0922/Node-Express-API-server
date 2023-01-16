@@ -12,5 +12,5 @@
 > npm start to run the server </br>
 then the app should be running on http://localhost:5000 </br>
 
-
+CRUD functionalities are implemented in localhost:5000/users where users can be CREATED, READ, UPDATED/DELETED through users/:id  
 
